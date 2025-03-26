@@ -22,7 +22,7 @@ export function Navbar() {
   };
 
   const navItems = [
-    { path: "/", label: "Home", icon: <Home className="h-4 w-4 mr-1" /> },
+   # { path: "/", label: "Home", icon: <Home className="h-4 w-4 mr-1" /> },
     { path: "/dashboard", label: "Dashboard", icon: <BarChart className="h-4 w-4 mr-1" /> },
     { path: "/contacts", label: "Contacts", icon: <Users className="h-4 w-4 mr-1" /> },
   ];
