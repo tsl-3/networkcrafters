@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -58,11 +57,11 @@ const Index = () => {
       </div>
 
       {/* Login Card */}
-      <Card className="w-full max-w-md mx-4 z-10 glass-card bg-background/70 backdrop-blur-sm border-gray-800">
+      <Card className="w-full max-w-md mx-4 z-10 bg-black/60 backdrop-blur-md border-gray-800 rounded-lg shadow-lg">
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4 pt-8">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-white">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -70,11 +69,11 @@ const Index = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-muted/50 border-input"
+                className="bg-muted/40 border-gray-600 text-white placeholder-gray-400"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-white">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -82,14 +81,14 @@ const Index = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-muted/50 border-input"
+                className="bg-muted/40 border-gray-600 text-white placeholder-gray-400"
               />
             </div>
           </CardContent>
           <CardFooter className="pb-8">
             <Button
               type="submit"
-              className="w-full bg-primary hover:bg-primary/90"
+              className="w-full bg-[#6b99d6] hover:bg-[#6b99d6]/90 text-white font-semibold shadow-md rounded-lg"
               disabled={isLoading}
             >
               {isLoading ? "Signing in..." : "Sign In"}
