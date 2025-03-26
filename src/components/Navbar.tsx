@@ -22,13 +22,12 @@ export function Navbar() {
       className="sticky top-0 z-40 bg-gray-900/70 backdrop-blur-md border-b border-[#6b99d6]/20 shadow-md shadow-[#6b99d6]/10"
     >
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/dashboard" className="flex items-center gap-2" onClick={closeMenu}>
+        <Link to="/dashboard" className="flex items-center" onClick={closeMenu}>
           <img 
             src="/placeholder.svg" 
-            alt="Rolodex AI Logo" 
-            className="h-8 w-8 object-contain"
+            alt="Logo" 
+            className="h-12 w-12 object-contain"
           />
-          <span className="text-lg font-semibold text-white">Rolodex AI</span>
         </Link>
 
         {/* Mobile menu button */}
