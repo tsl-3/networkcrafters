@@ -81,7 +81,7 @@ const Index = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-muted/40 border-gray-600 text-white placeholder-gray-400"
+                className="bg-muted/40 border-gray-600 text-white placeholder-white"
               />
             </div>
           </CardContent>
