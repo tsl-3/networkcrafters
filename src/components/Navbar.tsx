@@ -26,7 +26,7 @@ export function Navbar() {
           <img 
             src="/placeholder.svg" 
             alt="Logo" 
-            className="h-16 w-16 object-contain"
+            className="h-32 w-32 object-contain"
           />
         </Link>
 
