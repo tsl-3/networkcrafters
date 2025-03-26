@@ -23,7 +23,7 @@ const Index = () => {
       document.cookie = "auth_token=demo; path=/; max-age=86400";
       toast({
         title: "Login successful",
-        description: "Welcome to Rolodex AI",
+        description: "Welcome to Initium",
       });
       setTimeout(() => {
         navigate("/dashboard");
@@ -43,7 +43,7 @@ const Index = () => {
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center bg-black">
       {/* Background with dark blue and uploaded image with transparency */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[#0a192f] opacity-100"></div>
+        <div className="absolute bottom-0 left-0 right-0 top-0 bg-black opacity-100"></div>
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
           style={{ backgroundImage: "url('/bg-curve-wall.jpg')" }}
