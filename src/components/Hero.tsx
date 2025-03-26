@@ -25,16 +25,16 @@ export function Hero() {
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center gap-4 text-center">
           <div className="space-y-3">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 animate-fade-in opacity-0" style={{ animationDelay: "0.2s" }}>
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
               Your Network, <br className="sm:hidden" />
               <span className="text-primary">Powered by AI</span>
             </h1>
-            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed animate-fade-in opacity-0" style={{ animationDelay: "0.4s" }}>
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               Manage your professional connections with AI-driven insights. 
               Automatically enhance contact profiles and discover collaboration opportunities.
             </p>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 animate-fade-in opacity-0" style={{ animationDelay: "0.6s" }}>
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <Link to="/contacts">
               <Button className="h-11 px-6 rounded-lg bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-transform hover:translate-y-[-2px]" onClick={handleGetStarted}>
                 {isLoading ? (
@@ -58,7 +58,7 @@ export function Hero() {
           </div>
         </div>
         
-        <div className="mt-16 animate-fade-in opacity-0" style={{ animationDelay: "0.8s" }}>
+        <div className="mt-16">
           <div className="relative mx-auto overflow-hidden rounded-xl border bg-background shadow-xl dark:border-gray-800 max-w-4xl glass-card">
             <div className="bg-muted/30 dark:bg-muted/10 px-3 py-2 border-b flex items-center gap-2">
               <div className="flex gap-1.5">
@@ -76,20 +76,20 @@ export function Hero() {
                       {i === 1 ? '92% match' : i === 2 ? '87% match' : '76% match'}
                     </div>
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="h-10 w-10 rounded-full bg-muted/50 animate-pulse-subtle"></div>
+                      <div className="h-10 w-10 rounded-full bg-muted/50"></div>
                       <div className="space-y-1">
-                        <div className="h-3 w-24 bg-muted/50 rounded animate-pulse-subtle"></div>
-                        <div className="h-2 w-20 bg-muted/30 rounded animate-pulse-subtle"></div>
+                        <div className="h-3 w-24 bg-muted/50 rounded"></div>
+                        <div className="h-2 w-20 bg-muted/30 rounded"></div>
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <div className="h-2 w-full bg-muted/30 rounded animate-pulse-subtle"></div>
-                      <div className="h-2 w-5/6 bg-muted/30 rounded animate-pulse-subtle"></div>
-                      <div className="h-2 w-4/6 bg-muted/30 rounded animate-pulse-subtle"></div>
+                      <div className="h-2 w-full bg-muted/30 rounded"></div>
+                      <div className="h-2 w-5/6 bg-muted/30 rounded"></div>
+                      <div className="h-2 w-4/6 bg-muted/30 rounded"></div>
                     </div>
                     <div className="mt-3 flex gap-1.5">
-                      <div className="h-5 w-10 rounded-full bg-muted/50 animate-pulse-subtle"></div>
-                      <div className="h-5 w-12 rounded-full bg-muted/50 animate-pulse-subtle"></div>
+                      <div className="h-5 w-10 rounded-full bg-muted/50"></div>
+                      <div className="h-5 w-12 rounded-full bg-muted/50"></div>
                     </div>
                   </div>
                 ))}

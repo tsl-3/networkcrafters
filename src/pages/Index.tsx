@@ -69,7 +69,7 @@ const Index = () => {
               {features.map((feature, i) => (
                 <div 
                   key={i} 
-                  className="bg-background rounded-xl p-6 border glass-card card-hover animate-fade-in opacity-0" 
+                  className="bg-background rounded-xl p-6 border glass-card card-hover" 
                   style={{ animationDelay: `${i * 0.1 + 0.1}s` }}
                 >
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
