@@ -44,7 +44,7 @@ const Index = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-black opacity-100"></div>
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
           style={{ backgroundImage: "url('/bg-curve-wall.jpg')" }}
         ></div>
       </div>
