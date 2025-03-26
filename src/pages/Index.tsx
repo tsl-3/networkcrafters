@@ -41,18 +41,19 @@ const Index = () => {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center bg-black">
-      {/* Background with gradient effect */}
-      <div className="absolute inset-0 z-0 opacity-30">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f46e5,#3b82f6)] opacity-30 blur-3xl"></div>
+      {/* Background with dark blue and uploaded image with transparency */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[#0a192f] opacity-100"></div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+          style={{ backgroundImage: "url('/lovable-uploads/95abe763-cae4-4888-989b-8a258889dae5.png')" }}
+        ></div>
       </div>
 
       {/* Logo positioned at top center */}
       <div className="absolute top-8 z-10">
-        <div className="flex items-center gap-2 font-bold text-3xl text-foreground">
-          <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary">
-            <span className="text-white text-lg font-bold">R</span>
-          </div>
-          <span>Rolodex AI</span>
+        <div className="flex items-center justify-center">
+          <img src="/placeholder.svg" alt="Logo" className="h-auto w-[300px]" />
         </div>
       </div>
 
