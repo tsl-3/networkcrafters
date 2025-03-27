@@ -31,7 +31,7 @@ export default function AiHub() {
         <div className="flex flex-col space-y-6">
           <AiHubHeader />
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <div className="bg-red-500 text-white p-4">Tabs Test Content</div>
+            <AiTabNavigation activeTab={activeTab} />
           </Tabs>
         </div>
       </main>
