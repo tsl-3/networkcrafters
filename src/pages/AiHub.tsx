@@ -3,12 +3,6 @@ import { Navbar } from "@/components/Navbar";
 import { AiTabNavigation } from "@/components/ai/AiTabNavigation";
 import { AiHubHeader } from "@/components/ai/AiHubHeader";
 import { LeadGenerationTab } from "@/components/ai/tabs/LeadGenerationTab";
-import { IdeaGenerationTab } from "@/components/ai/tabs/IdeaGenerationTab";
-import { ChatTab } from "@/components/ai/tabs/ChatTab";
-import { ResearchTab } from "@/components/ai/tabs/ResearchTab";
-import { ContentCreationTab } from "@/components/ai/tabs/ContentCreationTab";
-import { ContactResearchTab } from "@/components/ai/tabs/ContactResearchTab";
-import { WorkflowTab } from "@/components/ai/tabs/WorkflowTab";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 
 export default function AiHub() {
@@ -30,7 +24,13 @@ export default function AiHub() {
       <main className="container flex-1 py-8 px-4 md:px-6">
         <div className="flex flex-col space-y-6">
           <AiHubHeader />
-          <div className="text-white p-4">Placeholder below header</div>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <AiTabNavigation activeTab={activeTab} />
+            <TabsContent value="lead-generation">
+              <LeadGenerationTab />
+            </TabsContent>
+            {/* Add other TabsContent later */}
+          </Tabs>
         </div>
       </main>
     </div>
