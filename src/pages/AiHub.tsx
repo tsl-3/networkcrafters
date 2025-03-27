@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { AiTabNavigation } from "@/components/ai/AiTabNavigation";
@@ -10,24 +9,21 @@ import { ResearchTab } from "@/components/ai/tabs/ResearchTab";
 import { ContentCreationTab } from "@/components/ai/tabs/ContentCreationTab";
 import { ContactResearchTab } from "@/components/ai/tabs/ContactResearchTab";
 import { WorkflowTab } from "@/components/ai/tabs/WorkflowTab";
-import {
-  Tabs,
-  TabsContent,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 
 export default function AiHub() {
   const [activeTab, setActiveTab] = useState("lead-generation");
-  
+
   return (
-    <div 
+    <div
       className="flex min-h-screen flex-col bg-gradient-to-b from-gray-900 to-gray-950"
       style={{
         backgroundImage: 'url(/bg-curve-wall.jpg)',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center -0',
         backgroundRepeat: 'no-repeat',
         backgroundBlendMode: 'overlay',
-        backgroundColor: 'rgba(17, 24, 39, 0.85)', /* Dark blue with 85% opacity */
+        backgroundColor: 'rgba(17, 24, 39, 0.85)', // Dark blue with 85% opacity
       }}
     >
       <Navbar />
@@ -36,25 +32,25 @@ export default function AiHub() {
           <AiHubHeader />
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <AiTabNavigation activeTab={activeTab} />
-            <TabsContent value="lead-generation" className="animate-fade-in">
+            <TabsContent value="lead-generation">
               <LeadGenerationTab />
             </TabsContent>
-            <TabsContent value="idea-generation" className="animate-fade-in">
+            <TabsContent value="idea-generation">
               <IdeaGenerationTab />
             </TabsContent>
-            <TabsContent value="chat" className="animate-fade-in">
+            <TabsContent value="chat">
               <ChatTab />
             </TabsContent>
-            <TabsContent value="research" className="animate-fade-in">
+            <TabsContent value="research">
               <ResearchTab />
             </TabsContent>
-            <TabsContent value="content" className="animate-fade-in">
+            <TabsContent value="content">
               <ContentCreationTab />
             </TabsContent>
-            <TabsContent value="contact-research" className="animate-fade-in">
+            <TabsContent value="contact-research">
               <ContactResearchTab />
             </TabsContent>
-            <TabsContent value="workflow" className="animate-fade-in">
+            <TabsContent value="workflow">
               <WorkflowTab />
             </TabsContent>
           </Tabs>
