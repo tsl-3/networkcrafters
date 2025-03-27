@@ -32,7 +32,9 @@ export default function AiHub() {
           <AiHubHeader />
           <Tabs value="lead-generation" onValueChange={setActiveTab}>
             <AiTabNavigation activeTab="lead-generation" />
-            <div className="text-white mt-2">Tabs rendered at: {new Date().toLocaleTimeString()}</div>
+            <TabsContent value="lead-generation">
+              <div className="text-white p-4">Lead Gen Test Content</div>
+            </TabsContent>
           </Tabs>
         </div>
       </main>
