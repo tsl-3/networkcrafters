@@ -36,25 +36,25 @@ export default function AiHub() {
           <AiHubHeader />
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <AiTabNavigation activeTab={activeTab} />
-            <TabsContent value="lead-generation">
+            <TabsContent value="lead-generation" className="animate-fade-in">
               <LeadGenerationTab />
             </TabsContent>
-            <TabsContent value="idea-generation">
+            <TabsContent value="idea-generation" className="animate-fade-in">
               <IdeaGenerationTab />
             </TabsContent>
-            <TabsContent value="chat">
+            <TabsContent value="chat" className="animate-fade-in">
               <ChatTab />
             </TabsContent>
-            <TabsContent value="research">
+            <TabsContent value="research" className="animate-fade-in">
               <ResearchTab />
             </TabsContent>
-            <TabsContent value="content">
+            <TabsContent value="content" className="animate-fade-in">
               <ContentCreationTab />
             </TabsContent>
-            <TabsContent value="contact-research">
+            <TabsContent value="contact-research" className="animate-fade-in">
               <ContactResearchTab />
             </TabsContent>
-            <TabsContent value="workflow">
+            <TabsContent value="workflow" className="animate-fade-in">
               <WorkflowTab />
             </TabsContent>
           </Tabs>

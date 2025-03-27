@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, Sparkles, Send } from "lucide-react";
+import { MessageSquare, Sparkles, Send, Loader } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 
@@ -26,6 +26,7 @@ export function ChatTab() {
   ]);
   
   const [isTyping, setIsTyping] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // Scroll to bottom whenever messages change
@@ -34,7 +35,10 @@ export function ChatTab() {
   }, [messages]);
   
   const handleSendMessage = () => {
-    if (inputMessage.trim() === "") return;
+    if (inputMessage.trim() === "" || isSending) return;
+    
+    // Set sending state
+    setIsSending(true);
     
     // Add user message
     const userMessage: Message = {
@@ -61,6 +65,7 @@ export function ChatTab() {
       
       setMessages(prev => [...prev, aiMessage]);
       setIsTyping(false);
+      setIsSending(false);
     }, 1500);
   };
   
@@ -90,13 +95,17 @@ export function ChatTab() {
   };
   
   return (
-    <Card className="bg-gray-800/30 border-gray-700 p-6 backdrop-blur-sm mt-6 flex flex-col h-[calc(100vh-300px)]">
+    <Card className="bg-gray-800/30 border-gray-700 p-6 backdrop-blur-sm mt-6 flex flex-col h-[calc(100vh-300px)] animate-fade-in">
       <h2 className="text-xl font-semibold text-white mb-4">OMNIS Chat Assistant</h2>
       
       <ScrollArea className="flex-1 mb-4 pr-4">
         <div className="space-y-4">
-          {messages.map((msg) => (
-            <div key={msg.id} className={`flex items-start ${msg.sender === "user" ? "justify-end" : ""}`}>
+          {messages.map((msg, index) => (
+            <div 
+              key={msg.id} 
+              className={`flex items-start ${msg.sender === "user" ? "justify-end" : ""} animate-fade-in`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               {msg.sender === "ai" && (
                 <div className="w-8 h-8 rounded-full bg-[#6b99d6]/20 flex items-center justify-center mr-3 flex-shrink-0">
                   <Sparkles className="h-4 w-4 text-[#6b99d6]" />
@@ -105,8 +114,8 @@ export function ChatTab() {
               <div 
                 className={`rounded-lg p-3 max-w-[80%] ${
                   msg.sender === "ai" 
-                    ? "bg-gray-800/50 text-[#a8c6f0]" 
-                    : "bg-[#6b99d6]/20 text-white ml-auto"
+                    ? "bg-gray-800/50 text-[#a8c6f0] animate-slide-in-right" 
+                    : "bg-[#6b99d6]/20 text-white ml-auto animate-scale-in"
                 }`}
               >
                 {msg.content}
@@ -120,11 +129,11 @@ export function ChatTab() {
           ))}
           
           {isTyping && (
-            <div className="flex items-start">
+            <div className="flex items-start animate-fade-in">
               <div className="w-8 h-8 rounded-full bg-[#6b99d6]/20 flex items-center justify-center mr-3 flex-shrink-0">
                 <Sparkles className="h-4 w-4 text-[#6b99d6]" />
               </div>
-              <div className="bg-gray-800/50 rounded-lg p-3 text-[#a8c6f0] max-w-[80%]">
+              <div className="bg-gray-800/50 rounded-lg p-3 text-[#a8c6f0] max-w-[80%] animate-pulse-subtle">
                 <div className="flex space-x-1">
                   <span className="animate-bounce">•</span>
                   <span className="animate-bounce" style={{ animationDelay: "0.2s" }}>•</span>
@@ -140,18 +149,23 @@ export function ChatTab() {
       
       <div className="flex space-x-2">
         <Input 
-          className="flex-1 bg-gray-800/50 border-gray-700 text-white focus:ring-[#6b99d6] focus:border-[#6b99d6]"
+          className="flex-1 bg-gray-800/50 border-gray-700 text-white focus:ring-[#6b99d6] focus:border-[#6b99d6] transition-all duration-300"
           placeholder="Type your message here..."
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyPress={handleKeyPress}
+          disabled={isSending}
         />
         <Button 
-          className="bg-[#6b99d6] hover:bg-[#5c88c5]"
+          className="bg-[#6b99d6] hover:bg-[#5c88c5] transition-all duration-300"
           onClick={handleSendMessage}
-          disabled={inputMessage.trim() === "" || isTyping}
+          disabled={inputMessage.trim() === "" || isSending}
         >
-          <Send className="h-4 w-4 mr-2" />
+          {isSending ? (
+            <Loader className="h-4 w-4 mr-2 animate-spin" />
+          ) : (
+            <Send className="h-4 w-4 mr-2" />
+          )}
           Send
         </Button>
       </div>
