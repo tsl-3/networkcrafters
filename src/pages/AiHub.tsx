@@ -20,10 +20,10 @@ export default function AiHub() {
       style={{
         backgroundImage: 'url(/bg-curve-wall.jpg)',
         backgroundSize: 'cover',
-        backgroundPosition: 'center -0',
+        backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundBlendMode: 'overlay',
-        backgroundColor: 'rgba(17, 24, 39, 0.85)', // Dark blue with 85% opacity
+        backgroundColor: 'rgba(17, 24, 39, 0.85)',
       }}
     >
       <Navbar />
@@ -31,28 +31,7 @@ export default function AiHub() {
         <div className="flex flex-col space-y-6">
           <AiHubHeader />
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <AiTabNavigation activeTab={activeTab} />
-            <TabsContent value="lead-generation">
-              <LeadGenerationTab />
-            </TabsContent>
-            <TabsContent value="idea-generation">
-              <IdeaGenerationTab />
-            </TabsContent>
-            <TabsContent value="chat">
-              <ChatTab />
-            </TabsContent>
-            <TabsContent value="research">
-              <ResearchTab />
-            </TabsContent>
-            <TabsContent value="content">
-              <ContentCreationTab />
-            </TabsContent>
-            <TabsContent value="contact-research">
-              <ContactResearchTab />
-            </TabsContent>
-            <TabsContent value="workflow">
-              <WorkflowTab />
-            </TabsContent>
+            <div className="bg-red-500 text-white p-4">Tabs Test Content</div>
           </Tabs>
         </div>
       </main>
