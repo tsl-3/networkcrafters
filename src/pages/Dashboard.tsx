@@ -1,125 +1,72 @@
-
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
-import { ContactCard } from "@/components/ContactCard";
 import { sampleContacts, industryCounts, tagCounts, matchSuggestions } from "@/lib/sample-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
-  Users, 
-  Star, 
-  BarChart, 
-  PieChart,
-  Calendar, 
-  Clock, 
-  Activity,
-  Tag,
-  Building,
-  Zap,
-  Plus,
-  ChevronRight,
-  MessageSquare,
-  Share2,
-  PenSquare
+  Users, Star, BarChart, PieChart, Calendar, Clock, Activity, Zap, Plus, ChevronRight, MessageSquare, Share2, PenSquare 
 } from "lucide-react";
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart as RechartsPieChart, Pie } from "recharts";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+// Color palette based on #6b99d6
 const colorPalette = [
-  "hsl(221, 83%, 53%)",
-  "hsl(217, 91%, 60%)",
-  "hsl(142, 71%, 45%)",
-  "hsl(250, 91%, 60%)",
-  "hsl(45, 93%, 47%)",
-  "hsl(0, 84%, 60%)"
+  "#6b99d6", // Primary
+  "#8bb1e8", // Light
+  "#4d7bb8", // Dark
+  "#a8c6f0", // Very light
+  "#5c88c5", // Mid-dark
+  "#799ed9"  // Mid-light
 ];
 
 const Dashboard = () => {
   const [period, setPeriod] = useState<"week" | "month" | "quarter">("month");
   
-  // Convert industry data for chart
   const industryData = Object.entries(industryCounts).map(([name, value], index) => ({
     name: name.charAt(0).toUpperCase() + name.slice(1),
     value,
     fill: colorPalette[index % colorPalette.length]
   }));
   
-  // Convert tag data for chart
   const tagData = Object.entries(tagCounts)
-    .filter(([_, value]) => value > 15) // Filter to show only tags with count > 15
+    .filter(([_, value]) => value > 15)
     .map(([name, value], index) => ({
       name,
       value,
       fill: colorPalette[index % colorPalette.length]
     }));
   
-  // Recent activity data (mock)
   const recentActivity = [
-    {
-      id: 1,
-      type: "new-contact",
-      contact: sampleContacts[0],
-      date: new Date(Date.now() - 2 * 60 * 60 * 1000) // 2 hours ago
-    },
-    {
-      id: 2,
-      type: "follow-up",
-      contact: sampleContacts[1],
-      date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) // 1 day ago
-    },
-    {
-      id: 3,
-      type: "message",
-      contact: sampleContacts[2],
-      date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) // 2 days ago
-    },
-    {
-      id: 4,
-      type: "new-contact",
-      contact: sampleContacts[3],
-      date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) // 3 days ago
-    }
+    { id: 1, type: "new-contact", contact: sampleContacts[0], date: new Date(Date.now() - 2 * 60 * 60 * 1000) },
+    { id: 2, type: "follow-up", contact: sampleContacts[1], date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) },
+    { id: 3, type: "message", contact: sampleContacts[2], date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) },
+    { id: 4, type: "new-contact", contact: sampleContacts[3], date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) }
   ];
   
-  // Format date for display
   const formatDate = (date: Date) => {
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
+    const diff = Date.now() - date.getTime();
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const minutes = Math.floor(diff / (1000 * 60));
-    
-    if (days > 0) {
-      return `${days} day${days > 1 ? 's' : ''} ago`;
-    } else if (hours > 0) {
-      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-    } else {
-      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-    }
+    return days > 0 ? `${days}d` : hours > 0 ? `${hours}h` : `${minutes}m`;
   };
   
-  // Activity icon based on type
   const getActivityIcon = (type: string) => {
     switch (type) {
-      case "new-contact":
-        return <Plus className="h-4 w-4 text-green-500" />;
-      case "follow-up":
-        return <Clock className="h-4 w-4 text-amber-500" />;
-      case "message":
-        return <MessageSquare className="h-4 w-4 text-blue-500" />;
-      default:
-        return <Activity className="h-4 w-4 text-primary" />;
+      case "new-contact": return <Plus className="h-4 w-4 text-[#8bb1e8]" />;
+      case "follow-up": return <Clock className="h-4 w-4 text-[#a8c6f0]" />;
+      case "message": return <MessageSquare className="h-4 w-4 text-[#6b99d6]" />;
+      default: return <Activity className="h-4 w-4 text-[#799ed9]" />;
     }
   };
   
-  // Custom tooltip for charts
   const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
+    if (active && payload?.length) {
       return (
-        <div className="bg-popover text-popover-foreground p-2 rounded-md border text-sm">
-          <p>{`${payload[0].name}: ${payload[0].value}`}</p>
+        <div className="bg-gray-900/90 backdrop-blur-sm text-white p-2 rounded-lg border border-[#6b99d6]/30 shadow-lg shadow-[#6b99d6]/20">
+          <p className="text-sm font-medium">{`${payload[0].name}: ${payload[0].value}`}</p>
         </div>
       );
     }
@@ -127,108 +74,67 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div 
+      className="flex min-h-screen flex-col bg-black font-sans antialiased"
+      style={{
+        backgroundImage: `url('/bg-geometry.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundBlendMode: 'overlay',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)' // 60% transparency
+      }}
+    >
       <Navbar />
-      <main className="flex-1 bg-muted/20">
-        <div className="container py-8 px-4 md:px-6">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-            <p className="text-muted-foreground mt-1">
-              Overview of your professional network
-            </p>
+      <main className="flex-1 py-12 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-12">
+            <h1 className="text-4xl font-bold text-white tracking-tight">Dashboard</h1>
+            <p className="text-[#a8c6f0] mt-2 text-lg opacity-80">Advanced network analytics</p>
           </div>
           
-          {/* Stats cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <Card className="overflow-hidden">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">
-                      Total Contacts
-                    </p>
-                    <h3 className="text-3xl font-bold mt-1">
-                      {sampleContacts.length}
-                    </h3>
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {[
+              { title: "Total Contacts", value: sampleContacts.length, icon: Users },
+              { title: "High-Value", value: sampleContacts.filter(c => c.matchScore && c.matchScore > 80).length, icon: Star },
+              { title: "Follow-Ups", value: sampleContacts.filter(c => c.tags?.includes("follow-up")).length, icon: Calendar },
+              { title: "Matches", value: matchSuggestions.length, icon: Zap }
+            ].map((stat, idx) => (
+              <Card 
+                key={idx}
+                className="bg-gray-900/70 backdrop-blur-md border-[#6b99d6]/20 shadow-md shadow-[#6b99d6]/10 hover:shadow-[#6b99d6]/30 transition-all duration-300"
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-[#a8c6f0] font-medium opacity-80">{stat.title}</p>
+                      <h3 className="text-3xl font-semibold text-white mt-1">{stat.value}</h3>
+                    </div>
+                    <div className="p-3 bg-[#6b99d6]/10 rounded-xl">
+                      <stat.icon className="h-6 w-6 text-[#6b99d6]" />
+                    </div>
                   </div>
-                  <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Users className="h-6 w-6 text-primary" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="overflow-hidden">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">
-                      High-Value Contacts
-                    </p>
-                    <h3 className="text-3xl font-bold mt-1">
-                      {sampleContacts.filter(c => c.matchScore && c.matchScore > 80).length}
-                    </h3>
-                  </div>
-                  <div className="h-12 w-12 bg-amber-500/10 rounded-full flex items-center justify-center">
-                    <Star className="h-6 w-6 text-amber-500" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="overflow-hidden">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">
-                      Follow-Ups Due
-                    </p>
-                    <h3 className="text-3xl font-bold mt-1">
-                      {sampleContacts.filter(c => c.tags?.includes("follow-up")).length}
-                    </h3>
-                  </div>
-                  <div className="h-12 w-12 bg-red-500/10 rounded-full flex items-center justify-center">
-                    <Calendar className="h-6 w-6 text-red-500" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="overflow-hidden">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">
-                      Match Suggestions
-                    </p>
-                    <h3 className="text-3xl font-bold mt-1">
-                      {matchSuggestions.length}
-                    </h3>
-                  </div>
-                  <div className="h-12 w-12 bg-green-500/10 rounded-full flex items-center justify-center">
-                    <Zap className="h-6 w-6 text-green-500" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ))}
           </div>
           
-          {/* Charts and analysis */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            <Card className="overflow-hidden">
-              <CardHeader className="pb-2">
+          {/* Charts */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <Card className="bg-gray-900/70 backdrop-blur-md border-[#6b99d6]/20 shadow-md shadow-[#6b99d6]/10">
+              <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <BarChart className="h-5 w-5 text-muted-foreground" />
-                    Network by Industry
+                  <CardTitle className="text-xl text-white flex items-center gap-2">
+                    <BarChart className="h-5 w-5 text-[#799ed9]" />
+                    Industry Distribution
                   </CardTitle>
-                  <div className="flex gap-1">
-                    {["week", "month", "quarter"].map((p) => (
+                  <div className="flex gap-2">
+                    {["week", "month", "quarter"].map(p => (
                       <Button
                         key={p}
                         variant={period === p ? "default" : "ghost"}
                         size="sm"
-                        className="text-xs h-8"
+                        className={`text-xs h-8 rounded-full ${period === p ? 'bg-[#6b99d6] hover:bg-[#5c88c5]' : 'text-[#a8c6f0] hover:text-white hover:bg-[#6b99d6]/20'}`}
                         onClick={() => setPeriod(p as any)}
                       >
                         {p.charAt(0).toUpperCase() + p.slice(1)}
@@ -237,28 +143,19 @@ const Dashboard = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="p-0">
-                <div className="h-[300px] pt-2">
+              <CardContent>
+                <div className="h-[340px]">
                   <ResponsiveContainer width="100%" height="100%">
-                    <RechartsBarChart
-                      data={industryData}
-                      layout="vertical"
-                      margin={{ top: 20, right: 30, left: 70, bottom: 10 }}
-                    >
-                      <XAxis type="number" />
+                    <RechartsBarChart data={industryData} layout="vertical" margin={{ top: 20, right: 30, left: 80, bottom: 10 }}>
+                      <XAxis type="number" stroke="#6b99d6" tick={{ fill: '#a8c6f0' }} />
                       <YAxis 
                         dataKey="name" 
                         type="category" 
-                        axisLine={false}
-                        tickLine={false}
-                        width={60}
-                        tick={{ fontSize: 12 }}
+                        stroke="#6b99d6"
+                        tick={{ fill: '#fff', fontSize: 12 }}
                       />
                       <Tooltip content={<CustomTooltip />} />
-                      <Bar 
-                        dataKey="value" 
-                        radius={[4, 4, 4, 4]}
-                      >
+                      <Bar dataKey="value" radius={8}>
                         {industryData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.fill} />
                         ))}
@@ -269,25 +166,25 @@ const Dashboard = () => {
               </CardContent>
             </Card>
             
-            <Card className="overflow-hidden">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <PieChart className="h-5 w-5 text-muted-foreground" />
-                  Contact Tags Distribution
+            <Card className="bg-gray-900/70 backdrop-blur-md border-[#6b99d6]/20 shadow-md shadow-[#6b99d6]/10">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl text-white flex items-center gap-2">
+                  <PieChart className="h-5 w-5 text-[#799ed9]" />
+                  Tag Distribution
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-[300px]">
+                <div className="h-[340px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <RechartsPieChart>
                       <Pie
                         data={tagData}
                         cx="50%"
                         cy="50%"
-                        outerRadius={80}
+                        outerRadius={100}
                         dataKey="value"
                         label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                        labelLine={{ stroke: 'rgba(156, 163, 175, 0.5)', strokeWidth: 1 }}
+                        labelLine={{ stroke: '#6b99d6', strokeWidth: 1 }}
                       >
                         {tagData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -301,148 +198,123 @@ const Dashboard = () => {
             </Card>
           </div>
           
+          {/* Matches and Activity */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Collaboration suggestions */}
-            <div className="lg:col-span-2">
-              <Card className="h-full">
-                <CardHeader className="pb-2">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg flex items-center gap-2">
-                      <Zap className="h-5 w-5 text-amber-500" />
-                      Suggested Matches
-                    </CardTitle>
-                    <Button variant="ghost" size="sm" className="gap-1 text-xs h-8">
-                      View All
-                      <ChevronRight className="h-3.5 w-3.5 ml-1" />
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {matchSuggestions.map((match, index) => {
-                      const contact1 = sampleContacts.find(c => c.id === match.contact1);
-                      const contact2 = sampleContacts.find(c => c.id === match.contact2);
-                      
-                      if (!contact1 || !contact2) return null;
-                      
-                      return (
-                        <Card key={index} className="bg-muted/30 overflow-hidden">
-                          <CardContent className="p-4">
-                            <div className="flex items-center justify-between mb-3">
-                              <Badge variant="outline" className="bg-amber-500/10 text-amber-500 border-amber-500/20">
-                                {match.score}% Match
-                              </Badge>
-                              <div className="flex gap-2">
-                                <Button size="icon" variant="ghost" className="h-8 w-8">
-                                  <Share2 className="h-4 w-4" />
-                                </Button>
-                                <Button size="icon" variant="ghost" className="h-8 w-8">
-                                  <PenSquare className="h-4 w-4" />
-                                </Button>
-                              </div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between gap-4">
-                              <Link to={`/contacts/${contact1.id}`} className="flex items-center gap-3 flex-1">
-                                <Avatar className="h-10 w-10 border">
-                                  <AvatarImage src={contact1.imageUrl} alt={contact1.name} />
-                                  <AvatarFallback>
-                                    {contact1.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase()}
-                                  </AvatarFallback>
-                                </Avatar>
-                                <div>
-                                  <p className="font-medium">{contact1.name}</p>
-                                  <p className="text-xs text-muted-foreground">
-                                    {contact1.jobTitle}
-                                  </p>
-                                </div>
-                              </Link>
-                              
-                              <div className="flex flex-col items-center">
-                                <div className="h-0.5 w-10 bg-amber-500/50"></div>
-                                <Button size="sm" variant="outline" className="my-1 h-7 text-xs">
-                                  Introduce
-                                </Button>
-                                <div className="h-0.5 w-10 bg-amber-500/50"></div>
-                              </div>
-                              
-                              <Link to={`/contacts/${contact2.id}`} className="flex items-center gap-3 flex-1 justify-end text-right">
-                                <div>
-                                  <p className="font-medium">{contact2.name}</p>
-                                  <p className="text-xs text-muted-foreground">
-                                    {contact2.jobTitle}
-                                  </p>
-                                </div>
-                                <Avatar className="h-10 w-10 border">
-                                  <AvatarImage src={contact2.imageUrl} alt={contact2.name} />
-                                  <AvatarFallback>
-                                    {contact2.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase()}
-                                  </AvatarFallback>
-                                </Avatar>
-                              </Link>
-                            </div>
-                            
-                            <div className="mt-3 text-sm text-muted-foreground bg-background/50 p-2 rounded-md">
-                              <p>Reason: {match.reason}</p>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      );
-                    })}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-            
-            {/* Recent activity */}
-            <Card className="h-full">
-              <CardHeader className="pb-2">
+            <Card className="lg:col-span-2 bg-gray-900/70 backdrop-blur-md border-[#6b99d6]/20 shadow-md shadow-[#6b99d6]/10">
+              <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <Activity className="h-5 w-5 text-muted-foreground" />
-                    Recent Activity
+                  <CardTitle className="text-xl text-white flex items-center gap-2">
+                    <Zap className="h-5 w-5 text-[#6b99d6]" />
+                    Suggested Matches
                   </CardTitle>
-                  <Button variant="ghost" size="sm" className="gap-1 text-xs h-8">
-                    View All
-                    <ChevronRight className="h-3.5 w-3.5 ml-1" />
+                  <Button variant="ghost" size="sm" className="text-[#a8c6f0] hover:text-white hover:bg-[#6b99d6]/20 gap-1 text-xs h-8">
+                    View All <ChevronRight className="h-3.5 w-3.5" />
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {recentActivity.map((activity) => (
-                    <div key={activity.id} className="flex gap-4">
-                      <div className="mt-1">
-                        <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
-                          {getActivityIcon(activity.type)}
+              <CardContent className="space-y-6">
+                {matchSuggestions.map((match, index) => {
+                  const contact1 = sampleContacts.find(c => c.id === match.contact1);
+                  const contact2 = sampleContacts.find(c => c.id === match.contact2);
+                  if (!contact1 || !contact2) return null;
+                  return (
+                    <Card key={index} className="bg-gray-800/50 backdrop-blur-sm border-[#6b99d6]/30">
+                      <CardContent className="p-5">
+                        <div className="flex items-center justify-between mb-4">
+                          <Badge className="bg-[#6b99d6]/20 text-[#6b99d6] border-[#6b99d6]/40">
+                            {match.score}% Match
+                          </Badge>
+                          <div className="flex gap-2">
+                            <Button size="icon" variant="ghost" className="h-8 w-8 text-[#a8c6f0] hover:text-white hover:bg-[#6b99d6]/20">
+                              <Share2 className="h-4 w-4" />
+                            </Button>
+                            <Button size="icon" variant="ghost" className="h-8 w-8 text-[#a8c6f0] hover:text-white hover:bg-[#6b99d6]/20">
+                              <PenSquare className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm font-medium">
-                            {activity.type === "new-contact" && "Added new contact"}
-                            {activity.type === "follow-up" && "Follow-up reminder"}
-                            {activity.type === "message" && "Sent message"}
-                          </p>
-                          <time className="text-xs text-muted-foreground">
-                            {formatDate(activity.date)}
-                          </time>
+                        <div className="flex items-center justify-between gap-4">
+                          <Link to={`/contacts/${contact1.id}`} className="flex items-center gap-3 flex-1 group">
+                            <Avatar className="h-11 w-11 border-2 border-[#6b99d6]/30 group-hover:border-[#6b99d6]/50 transition-colors">
+                              <AvatarImage src={contact1.imageUrl} alt={contact1.name} />
+                              <AvatarFallback className="bg-[#6b99d6]/20 text-white">
+                                {contact1.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase()}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="font-medium text-white group-hover:text-[#6b99d6] transition-colors">{contact1.name}</p>
+                              <p className="text-sm text-[#a8c6f0] opacity-80">{contact1.jobTitle}</p>
+                            </div>
+                          </Link>
+                          <div className="flex flex-col items-center gap-2">
+                            <div className="h-px w-12 bg-[#6b99d6]/50"></div>
+                            <Button size="sm" className="h-7 text-xs bg-[#6b99d6]/20 text-[#6b99d6] hover:bg-[#6b99d6] hover:text-white border-[#6b99d6]/40">
+                              Introduce
+                            </Button>
+                            <div className="h-px w-12 bg-[#6b99d6]/50"></div>
+                          </div>
+                          <Link to={`/contacts/${contact2.id}`} className="flex items-center gap-3 flex-1 justify-end text-right group">
+                            <div>
+                              <p className="font-medium text-white group-hover:text-[#6b99d6] transition-colors">{contact2.name}</p>
+                              <p className="text-sm text-[#a8c6f0] opacity-80">{contact2.jobTitle}</p>
+                            </div>
+                            <Avatar className="h-11 w-11 border-2 border-[#6b99d6]/30 group-hover:border-[#6b99d6]/50 transition-colors">
+                              <AvatarImage src={contact2.imageUrl} alt={contact2.name} />
+                              <AvatarFallback className="bg-[#6b99d6]/20 text-white">
+                                {contact2.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase()}
+                              </AvatarFallback>
+                            </Avatar>
+                          </Link>
                         </div>
-                        <Link 
-                          to={`/contacts/${activity.contact.id}`}
-                          className="flex items-center mt-1 text-sm text-muted-foreground hover:text-foreground"
-                        >
-                          <span className="font-medium">{activity.contact.name}</span>
-                          {activity.contact.jobTitle && (
-                            <span className="text-muted-foreground ml-1">
-                              • {activity.contact.jobTitle}
-                            </span>
-                          )}
-                        </Link>
+                        <div className="mt-4 text-sm text-[#a8c6f0] bg-gray-900/30 p-3 rounded-lg">
+                          <p>Reason: {match.reason}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-gray-900/70 backdrop-blur-md border-[#6b99d6]/20 shadow-md shadow-[#6b99d6]/10">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl text-white flex items-center gap-2">
+                    <Activity className="h-5 w-5 text-[#799ed9]" />
+                    Recent Activity
+                  </CardTitle>
+                  <Button variant="ghost" size="sm" className="text-[#a8c6f0] hover:text-white hover:bg-[#6b99d6]/20 gap-1 text-xs h-8">
+                    View All <ChevronRight className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {recentActivity.map((activity) => (
+                  <div key={activity.id} className="flex gap-4">
+                    <div className="mt-1">
+                      <div className="h-9 w-9 rounded-full bg-[#6b99d6]/10 flex items-center justify-center">
+                        {getActivityIcon(activity.type)}
                       </div>
                     </div>
-                  ))}
-                </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-medium text-white">
+                          {activity.type === "new-contact" && "New Contact"}
+                          {activity.type === "follow-up" && "Follow-Up"}
+                          {activity.type === "message" && "Message Sent"}
+                        </p>
+                        <time className="text-xs text-[#a8c6f0] opacity-80">{formatDate(activity.date)}</time>
+                      </div>
+                      <Link 
+                        to={`/contacts/${activity.contact.id}`}
+                        className="flex items-center mt-1 text-sm text-[#a8c6f0] hover:text-[#6b99d6] transition-colors"
+                      >
+                        <span className="font-medium">{activity.contact.name}</span>
+                        {activity.contact.jobTitle && <span className="opacity-80 ml-1">• {activity.contact.jobTitle}</span>}
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               </CardContent>
             </Card>
           </div>

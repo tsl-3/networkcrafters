@@ -57,7 +57,7 @@ const Index = () => {
       </div>
 
       {/* Login Card */}
-      <Card className="w-full max-w-md mx-4 z-10 bg-black/60 backdrop-blur-md border-gray-800 rounded-lg shadow-lg">
+      <Card className="w-full max-w-md mx-4 z-10 bg-black/30 backdrop-blur-md border-gray-800 rounded-lg shadow-lg">
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4 pt-8">
             <div className="space-y-2">
@@ -69,7 +69,7 @@ const Index = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-muted/40 border-gray-600 text-white placeholder-gray-400"
+                className="bg-muted/40 border-gray-600 text-white placeholder:text-white placeholder-white"
               />
             </div>
             <div className="space-y-2">
@@ -81,7 +81,7 @@ const Index = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-muted/40 border-gray-600 text-white placeholder-gray-400"
+                className="bg-muted/40 border-gray-600 text-white placeholder:text-white placeholder-white"
               />
             </div>
           </CardContent>
