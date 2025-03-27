@@ -52,7 +52,7 @@ const Index = () => {
       {/* Logo positioned at top center */}
       <div className="absolute top-2 z-10">
         <div className="flex items-center justify-center">
-          <img src="/placeholder.svg" alt="Logo" className="h-auto w-[600px]" />
+          <img src="/placeholder.svg" alt="Logo" className="h-auto w-[800px]" />
         </div>
       </div>
 
