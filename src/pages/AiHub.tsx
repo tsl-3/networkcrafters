@@ -32,7 +32,7 @@ export default function AiHub() {
     >
       <Navbar />
       <main className="container flex-1 py-8 px-4 md:px-6">
-        <div className="flex flex-col space-y-6 animate-fade-in">
+        <div className="flex flex-col space-y-6">
           <AiHubHeader />
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <AiTabNavigation activeTab={activeTab} />
