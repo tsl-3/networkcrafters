@@ -30,12 +30,7 @@ export default function AiHub() {
       <main className="container flex-1 py-8 px-4 md:px-6">
         <div className="flex flex-col space-y-6">
           <AiHubHeader />
-          <Tabs value="lead-generation" onValueChange={setActiveTab}>
-            <AiTabNavigation activeTab="lead-generation" />
-            <TabsContent value="lead-generation">
-              <div className="text-white p-4">Lead Gen Test Content</div>
-            </TabsContent>
-          </Tabs>
+          <div className="text-white p-4">Placeholder below header</div>
         </div>
       </main>
     </div>
