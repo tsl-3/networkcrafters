@@ -1,3 +1,10 @@
+import { TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { UserPlus, Lightbulb, MessageSquare, Search, FileText, Users, Workflow } from "lucide-react";
+
+interface AiTabNavigationProps {
+  activeTab: string;
+}
+
 export function AiTabNavigation({ activeTab }: AiTabNavigationProps) {
   return (
     <TabsList className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2 bg-gray-800/50 p-1">
