@@ -22,7 +22,17 @@ import { Button } from "@/components/ui/button";
 
 export default function AiHub() {
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-gray-900 to-gray-950">
+    <div 
+      className="flex min-h-screen flex-col bg-gradient-to-b from-gray-900 to-gray-950"
+      style={{
+        backgroundImage: 'url(/bg-curve-wall.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundBlendMode: 'overlay',
+        backgroundColor: 'rgba(17, 24, 39, 0.85)', /* Dark blue with 85% opacity */
+      }}
+    >
       <Navbar />
       <main className="container flex-1 py-8 px-4 md:px-6">
         <div className="flex flex-col space-y-6 animate-fade-in">
