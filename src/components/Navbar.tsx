@@ -1,5 +1,6 @@
+
 import { Link, useLocation } from "react-router-dom";
-import { Users, BarChart, Menu, X } from "lucide-react";
+import { Users, BarChart, Menu, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -15,6 +16,7 @@ export function Navbar() {
   const navItems = [
     { path: "/dashboard", label: "Dashboard", icon: <BarChart className="h-4 w-4 mr-1" /> },
     { path: "/contacts", label: "Contacts", icon: <Users className="h-4 w-4 mr-1" /> },
+    { path: "/ai", label: "OMNIS", icon: <Sparkles className="h-4 w-4 mr-1" /> },
   ];
 
   return (
@@ -58,13 +60,6 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* CTA button */}
-        <div className="hidden md:flex items-center">
-          <Button className="bg-[#6b99d6] hover:bg-[#5c88c5] text-white rounded-lg px-4">
-            Try OMNIS
-          </Button>
-        </div>
-
         {/* Mobile navigation menu */}
         {isMenuOpen && (
           <div className="fixed inset-0 top-16 bg-gray-900/90 backdrop-blur-md z-50 md:hidden animate-fade-in">
@@ -84,11 +79,6 @@ export function Navbar() {
                   {item.label}
                 </Link>
               ))}
-              <div className="mt-4 p-4 border-t border-[#6b99d6]/20">
-                <Button className="w-full bg-[#6b99d6] hover:bg-[#5c88c5] text-white rounded-lg">
-                  Try OMNIS
-                </Button>
-              </div>
             </div>
           </div>
         )}

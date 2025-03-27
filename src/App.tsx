@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Contacts from "./pages/Contacts";
 import ContactView from "./pages/ContactView";
+import AiHub from "./pages/AiHub";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/contacts/:id" element={<ContactView />} />
+          <Route path="/ai" element={<AiHub />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
