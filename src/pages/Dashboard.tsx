@@ -81,7 +81,7 @@ const Dashboard = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundBlendMode: 'overlay',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)' // 60% transparency
+        backgroundColor: 'rgba(0, 0, 0, 0.8)' // 60% transparency
       }}
     >
       <Navbar />
