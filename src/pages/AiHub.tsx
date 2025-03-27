@@ -31,8 +31,8 @@ export default function AiHub() {
         <div className="flex flex-col space-y-6">
           <AiHubHeader />
           <Tabs value="lead-generation" onValueChange={setActiveTab}>
-            {console.log("Tabs rendering, value: lead-generation")}
             <AiTabNavigation activeTab="lead-generation" />
+            <div className="text-white mt-2">Tabs rendered at: {new Date().toLocaleTimeString()}</div>
           </Tabs>
         </div>
       </main>
