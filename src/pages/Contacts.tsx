@@ -128,7 +128,7 @@ const Contacts = () => {
     <div 
       className="flex min-h-screen flex-col bg-black font-sans antialiased"
       style={{
-        backgroundImage: `url('/bg-geometry.jpg')`,
+        backgroundImage: `url('/bg-arch.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundBlendMode: 'overlay',
