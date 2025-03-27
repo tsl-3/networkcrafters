@@ -44,7 +44,7 @@ const Index = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-black opacity-100"></div>
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
           style={{ backgroundImage: "url('/bg-curve-wall.jpg')" }}
         ></div>
       </div>
@@ -57,7 +57,7 @@ const Index = () => {
       </div>
 
       {/* Login Card */}
-      <Card className="w-full max-w-md mx-4 z-10 bg-black/60 backdrop-blur-md border-gray-800 rounded-lg shadow-lg">
+      <Card className="w-full max-w-md mx-4 z-10 bg-black/30 backdrop-blur-md border-gray-800 rounded-lg shadow-lg">
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4 pt-8">
             <div className="space-y-2">
