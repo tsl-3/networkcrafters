@@ -77,7 +77,7 @@ const Dashboard = () => {
     <div 
       className="flex min-h-screen flex-col bg-black font-sans antialiased"
       style={{
-        backgroundImage: `url('/bg-arch.jpg')`,
+        backgroundImage: `url('/bg-geometry.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundBlendMode: 'overlay',
