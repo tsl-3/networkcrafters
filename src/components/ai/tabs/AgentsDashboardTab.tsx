@@ -8,11 +8,13 @@ import { AgentToggle } from "@/components/ai/agents/AgentToggle";
 import { AgentStats } from "@/components/ai/agents/AgentStats";
 import { useAgents } from "@/hooks/useAgents";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export function AgentsDashboardTab() {
   const { agents, isLoading, error, toggleAgentStatus } = useAgents();
   const [searchTerm, setSearchTerm] = useState("");
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   // Handle toggle
   const handleToggle = async (id: string, isActive: boolean) => {
@@ -121,6 +123,7 @@ export function AgentsDashboardTab() {
                 <Button 
                   variant="ghost" 
                   className="w-full mt-4 border border-gray-700 hover:bg-gray-800 hover:text-[#6b99d6]"
+                  onClick={() => navigate(`/agents/${agent.id}`)}
                 >
                   View Details
                 </Button>

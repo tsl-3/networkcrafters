@@ -10,6 +10,8 @@ import Contacts from "./pages/Contacts";
 import ContactView from "./pages/ContactView";
 import AiHub from "./pages/AiHub";
 import NotFound from "./pages/NotFound";
+import Agents from "./pages/Agents";
+import AgentDetails from "./pages/AgentDetails";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +27,8 @@ const App = () => (
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/contacts/:id" element={<ContactView />} />
           <Route path="/ai" element={<AiHub />} />
+          <Route path="/agents" element={<Agents />} />
+          <Route path="/agents/:id" element={<AgentDetails />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
