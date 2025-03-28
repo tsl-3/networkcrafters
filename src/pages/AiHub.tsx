@@ -12,12 +12,14 @@ import { ResearchTab } from "@/components/ai/tabs/ResearchTab";
 import { ContentCreationTab } from "@/components/ai/tabs/ContentCreationTab";
 import { ContactResearchTab } from "@/components/ai/tabs/ContactResearchTab";
 import { WorkflowTab } from "@/components/ai/tabs/WorkflowTab";
+import { Navbar } from "@/components/Navbar";
 
 export default function AiHub() {
   const [activeTab, setActiveTab] = useState("lead-generation");
 
   return (
     <div className="min-h-screen bg-[#131417] text-white">
+      <Navbar />
       <div className="container mx-auto py-8 px-4">
         <div className="space-y-8">
           <AiHubHeader />
