@@ -17,11 +17,11 @@ interface StatItemProps {
 
 const StatItem = ({ icon, label, value }: StatItemProps) => (
   <div className="flex items-center gap-3">
-    <div className="bg-gray-800/50 rounded-md p-2">
+    <div className="bg-slate-800 rounded-md p-2">
       {icon}
     </div>
     <div>
-      <p className="text-sm text-gray-400">{label}</p>
+      <p className="text-sm text-slate-400">{label}</p>
       <p className="font-medium">{value}</p>
     </div>
   </div>
@@ -43,7 +43,7 @@ export function AgentStats({
   className = ""
 }: AgentStatsProps) {
   return (
-    <Card className={`bg-gray-900/50 border-gray-800 ${className}`}>
+    <Card className={`bg-slate-800 border-slate-700 ${className}`}>
       <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
         <StatItem 
           icon={<MessageSquare className="h-5 w-5 text-[#6b99d6]" />} 

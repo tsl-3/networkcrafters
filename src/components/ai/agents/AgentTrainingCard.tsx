@@ -23,7 +23,7 @@ export function AgentTrainingCard({
   className = ""
 }: AgentTrainingCardProps) {
   return (
-    <Card className={`bg-gray-900/50 border-gray-800 ${className}`}>
+    <Card className={`bg-slate-800 border-slate-700 ${className}`}>
       <CardHeader className="pb-2">
         <CardTitle className="text-lg flex items-center gap-2">
           {title}
@@ -34,13 +34,13 @@ export function AgentTrainingCard({
       </CardHeader>
       <CardContent>
         {description && (
-          <p className="text-sm text-gray-400 mb-4">{description}</p>
+          <p className="text-sm text-slate-400 mb-4">{description}</p>
         )}
         
         {!isComplete ? (
           <>
             <Progress value={progress} className="h-2 mb-4" />
-            <div className="flex justify-between text-xs text-gray-400 mb-4">
+            <div className="flex justify-between text-xs text-slate-400 mb-4">
               <span>{progress}% Complete</span>
               {progress > 0 && <span>{progress === 100 ? "Finalizing..." : "Training..."}</span>}
             </div>

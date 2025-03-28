@@ -44,16 +44,16 @@ export function AgentsDashboardTab() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
           <Input 
             placeholder="Search agents..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 bg-gray-900/70 border-gray-700"
+            className="pl-10 bg-slate-800 border-slate-700 text-white"
           />
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="border-gray-700 hover:bg-gray-800">
+          <Button variant="outline" size="sm" className="border-slate-700 bg-slate-800 hover:bg-slate-700 text-white">
             <Filter className="h-4 w-4 mr-2" />
             Filter
           </Button>
@@ -67,30 +67,30 @@ export function AgentsDashboardTab() {
       {isLoading ? (
         <div className="grid grid-cols-1 gap-4">
           {[1, 2, 3].map((i) => (
-            <Card key={i} className="bg-gray-900/50 border-gray-800 animate-pulse">
+            <Card key={i} className="bg-slate-800 border-slate-700 animate-pulse">
               <CardContent className="h-40"></CardContent>
             </Card>
           ))}
         </div>
       ) : error ? (
-        <Card className="bg-gray-900/50 border-gray-800">
+        <Card className="bg-slate-800 border-slate-700">
           <CardContent className="p-6 text-center">
             <p className="text-red-400">Error loading agents. Please try again.</p>
           </CardContent>
         </Card>
       ) : filteredAgents.length === 0 ? (
-        <Card className="bg-gray-900/50 border-gray-800">
+        <Card className="bg-slate-800 border-slate-700">
           <CardContent className="p-8 text-center">
             {searchTerm ? (
               <>
                 <p className="text-lg mb-2">No agents found</p>
-                <p className="text-gray-400">No agents match your search criteria</p>
+                <p className="text-slate-400">No agents match your search criteria</p>
               </>
             ) : (
               <>
-                <UserPlus className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+                <UserPlus className="h-12 w-12 mx-auto mb-4 text-slate-400" />
                 <p className="text-lg mb-2">No agents created yet</p>
-                <p className="text-gray-400 mb-4">Create your first agent to get started</p>
+                <p className="text-slate-400 mb-4">Create your first agent to get started</p>
                 <Button className="bg-[#6b99d6] hover:bg-[#6b99d6]/90">
                   <Plus className="h-4 w-4 mr-2" />
                   Create Agent
@@ -102,7 +102,7 @@ export function AgentsDashboardTab() {
       ) : (
         <div className="grid grid-cols-1 gap-4">
           {filteredAgents.map((agent) => (
-            <Card key={agent.id} className="bg-gray-900/50 border-gray-800 hover:border-[#6b99d6]/50 transition-colors">
+            <Card key={agent.id} className="bg-slate-800 border-slate-700 hover:border-[#6b99d6]/50 transition-colors">
               <CardHeader className="p-4 pb-0">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg">{agent.name}</CardTitle>
@@ -111,7 +111,7 @@ export function AgentsDashboardTab() {
                     onToggle={(active) => handleToggle(agent.id, active)} 
                   />
                 </div>
-                <p className="text-sm text-gray-400 mt-1">{agent.description}</p>
+                <p className="text-sm text-slate-400 mt-1">{agent.description}</p>
               </CardHeader>
               <CardContent className="p-4">
                 <AgentStats 
@@ -122,7 +122,7 @@ export function AgentsDashboardTab() {
                 />
                 <Button 
                   variant="ghost" 
-                  className="w-full mt-4 border border-gray-700 hover:bg-gray-800 hover:text-[#6b99d6]"
+                  className="w-full mt-4 border border-slate-700 bg-slate-800 hover:bg-slate-700 hover:text-[#6b99d6]"
                   onClick={() => navigate(`/agents/${agent.id}`)}
                 >
                   View Details

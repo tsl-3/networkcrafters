@@ -33,7 +33,7 @@ export function AgentToggle({ isActive, onToggle, showStatus = true }: AgentTogg
       {showStatus && (
         <Badge 
           variant={isActive ? "default" : "outline"} 
-          className={isActive ? "bg-[#6b99d6] text-white" : "text-gray-400 border-gray-400"}
+          className={isActive ? "bg-[#6b99d6] text-white" : "text-slate-400 border-slate-400"}
         >
           {isActive ? "Active" : "Inactive"}
         </Badge>

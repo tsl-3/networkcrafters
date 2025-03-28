@@ -29,14 +29,14 @@ export function KnowledgeBaseCard({
   className = ""
 }: KnowledgeBaseCardProps) {
   return (
-    <Card className={`bg-gray-900/50 border-gray-800 ${className}`}>
+    <Card className={`bg-slate-800 border-slate-700 ${className}`}>
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-lg">{title}</CardTitle>
         <Button 
           onClick={onAddDocument} 
           variant="outline" 
           size="sm" 
-          className="h-8 border-gray-700 hover:bg-gray-800"
+          className="h-8 border-slate-700 bg-slate-800 hover:bg-slate-700"
         >
           <FilePlus className="h-4 w-4 mr-2" />
           Add Document
@@ -44,7 +44,7 @@ export function KnowledgeBaseCard({
       </CardHeader>
       <CardContent>
         {documents.length === 0 ? (
-          <div className="text-center py-8 text-gray-400">
+          <div className="text-center py-8 text-slate-400">
             <FileText className="h-12 w-12 mx-auto mb-2 opacity-50" />
             <p>No documents added yet</p>
             <p className="text-sm">Add documents to train your agent</p>
@@ -52,7 +52,7 @@ export function KnowledgeBaseCard({
         ) : (
           <div className="space-y-3">
             {documents.map((doc) => (
-              <div key={doc.id} className="flex items-center justify-between p-2 bg-gray-800/50 rounded-md">
+              <div key={doc.id} className="flex items-center justify-between p-2 bg-slate-700 rounded-md">
                 <div className="flex items-center gap-2">
                   <FileText className="h-5 w-5 text-[#6b99d6]" />
                   <div>
@@ -61,7 +61,7 @@ export function KnowledgeBaseCard({
                       <Badge variant="outline" className="text-xs py-0 h-5">
                         {doc.type}
                       </Badge>
-                      {doc.size && <span className="text-xs text-gray-400">{doc.size}</span>}
+                      {doc.size && <span className="text-xs text-slate-400">{doc.size}</span>}
                     </div>
                   </div>
                 </div>

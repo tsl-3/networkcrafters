@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Navbar } from "@/components/Navbar";
 import { 
   ArrowLeft, 
   Settings, 
@@ -127,11 +128,14 @@ export function AgentDetails() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto p-6">
-        <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-700/50 rounded w-1/4"></div>
-          <div className="h-32 bg-gray-700/50 rounded"></div>
-          <div className="h-64 bg-gray-700/50 rounded"></div>
+      <div className="min-h-screen bg-[#131417] text-white">
+        <Navbar />
+        <div className="container mx-auto p-6">
+          <div className="animate-pulse space-y-4">
+            <div className="h-8 bg-slate-700 rounded w-1/4"></div>
+            <div className="h-32 bg-slate-700 rounded"></div>
+            <div className="h-64 bg-slate-700 rounded"></div>
+          </div>
         </div>
       </div>
     );
@@ -139,208 +143,214 @@ export function AgentDetails() {
 
   if (error || !agent) {
     return (
-      <div className="container mx-auto p-6">
-        <Card className="bg-gray-900/50 border-gray-800">
-          <CardContent className="p-6">
-            <p className="text-red-400 text-center">
-              {error ? error.message : "Agent not found"}
-            </p>
-            <div className="flex justify-center mt-4">
-              <Button variant="outline" className="border-gray-700" onClick={() => window.history.back()}>
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Go Back
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="min-h-screen bg-[#131417] text-white">
+        <Navbar />
+        <div className="container mx-auto p-6">
+          <Card className="bg-slate-800 border-slate-700">
+            <CardContent className="p-6">
+              <p className="text-red-400 text-center">
+                {error ? error.message : "Agent not found"}
+              </p>
+              <div className="flex justify-center mt-4">
+                <Button variant="outline" onClick={() => window.history.back()}>
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Go Back
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center gap-4">
-        <Button variant="outline" className="border-gray-700" onClick={() => window.history.back()}>
-          <ArrowLeft className="h-4 w-4" />
-        </Button>
-        <div className="flex-1">
-          {isEditing ? (
-            <div className="space-y-2">
-              <Input 
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="text-xl font-bold bg-gray-900/70 border-gray-700"
-              />
-              <Textarea 
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="text-gray-400 bg-gray-900/70 border-gray-700"
-                rows={2}
-              />
-              <div className="flex gap-2">
-                <Button onClick={handleSaveChanges} className="bg-[#6b99d6] hover:bg-[#6b99d6]/90">
-                  <Save className="h-4 w-4 mr-2" />
-                  Save Changes
-                </Button>
-                <Button variant="outline" className="border-gray-700" onClick={() => setIsEditing(false)}>
-                  Cancel
-                </Button>
+    <div className="min-h-screen bg-[#131417] text-white">
+      <Navbar />
+      <div className="container mx-auto p-6 space-y-6">
+        <div className="flex items-center gap-4">
+          <Button variant="outline" className="border-slate-700 bg-slate-800 hover:bg-slate-700" onClick={() => window.history.back()}>
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <div className="flex-1">
+            {isEditing ? (
+              <div className="space-y-2">
+                <Input 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="text-xl font-bold bg-slate-800 border-slate-700"
+                />
+                <Textarea 
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="text-slate-300 bg-slate-800 border-slate-700"
+                  rows={2}
+                />
+                <div className="flex gap-2">
+                  <Button onClick={handleSaveChanges} className="bg-[#6b99d6] hover:bg-[#6b99d6]/90">
+                    <Save className="h-4 w-4 mr-2" />
+                    Save Changes
+                  </Button>
+                  <Button variant="outline" className="border-slate-700 bg-slate-800 hover:bg-slate-700" onClick={() => setIsEditing(false)}>
+                    Cancel
+                  </Button>
+                </div>
               </div>
-            </div>
-          ) : (
-            <>
-              <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-bold">{agent.name}</h1>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="h-8 hover:bg-gray-800"
-                  onClick={() => setIsEditing(true)}
-                >
-                  <Settings className="h-4 w-4" />
-                </Button>
-              </div>
-              <p className="text-gray-400">{agent.description}</p>
-            </>
-          )}
-        </div>
-        <div>
-          <AgentToggle 
-            isActive={agent.isActive} 
-            onToggle={handleToggleStatus} 
-          />
-        </div>
-      </div>
-      
-      {agent.stats && (
-        <AgentStats 
-          conversations={agent.stats.conversations}
-          avgDuration={agent.stats.avgDuration}
-          users={agent.stats.users}
-          successRate={agent.stats.successRate}
-        />
-      )}
-      
-      <Tabs defaultValue="settings" className="w-full">
-        <TabsList className="bg-gray-800/50 p-1">
-          <TabsTrigger 
-            value="settings" 
-            className="data-[state=active]:bg-[#6b99d6] data-[state=active]:text-white"
-          >
-            <Settings className="h-4 w-4 mr-2" />
-            Settings
-          </TabsTrigger>
-          <TabsTrigger 
-            value="conversations" 
-            className="data-[state=active]:bg-[#6b99d6] data-[state=active]:text-white"
-          >
-            <MessageSquare className="h-4 w-4 mr-2" />
-            Conversations
-          </TabsTrigger>
-          <TabsTrigger 
-            value="users" 
-            className="data-[state=active]:bg-[#6b99d6] data-[state=active]:text-white"
-          >
-            <Users className="h-4 w-4 mr-2" />
-            Users
-          </TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="settings" className="space-y-4 mt-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AgentTrainingCard 
-              title="Agent Training" 
-              description="Train your agent with the latest data and improve its performance." 
-              progress={trainingProgress} 
-              isComplete={trainingProgress === 100}
-              onTrain={handleStartTraining}
+            ) : (
+              <>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl font-bold">{agent.name}</h1>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-8 hover:bg-slate-800"
+                    onClick={() => setIsEditing(true)}
+                  >
+                    <Settings className="h-4 w-4" />
+                  </Button>
+                </div>
+                <p className="text-slate-300">{agent.description}</p>
+              </>
+            )}
+          </div>
+          <div>
+            <AgentToggle 
+              isActive={agent.isActive} 
+              onToggle={handleToggleStatus} 
             />
-            
-            <Card className="bg-gray-900/50 border-gray-800">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Bot className="h-5 w-5 text-[#6b99d6]" />
-                  Model Configuration
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-gray-400 mb-1">Selected Model</p>
-                    <div className="flex items-center justify-between bg-gray-800/50 rounded-md p-2">
-                      <div className="flex items-center gap-2">
-                        <Zap className="h-5 w-5 text-[#6b99d6]" />
-                        <p>GPT-4</p>
+          </div>
+        </div>
+        
+        {agent.stats && (
+          <AgentStats 
+            conversations={agent.stats.conversations}
+            avgDuration={agent.stats.avgDuration}
+            users={agent.stats.users}
+            successRate={agent.stats.successRate}
+          />
+        )}
+        
+        <Tabs defaultValue="settings" className="w-full">
+          <TabsList className="bg-slate-800 p-1">
+            <TabsTrigger 
+              value="settings" 
+              className="data-[state=active]:bg-[#6b99d6] data-[state=active]:text-white"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Settings
+            </TabsTrigger>
+            <TabsTrigger 
+              value="conversations" 
+              className="data-[state=active]:bg-[#6b99d6] data-[state=active]:text-white"
+            >
+              <MessageSquare className="h-4 w-4 mr-2" />
+              Conversations
+            </TabsTrigger>
+            <TabsTrigger 
+              value="users" 
+              className="data-[state=active]:bg-[#6b99d6] data-[state=active]:text-white"
+            >
+              <Users className="h-4 w-4 mr-2" />
+              Users
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="settings" className="space-y-4 mt-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <AgentTrainingCard 
+                title="Agent Training" 
+                description="Train your agent with the latest data and improve its performance." 
+                progress={trainingProgress} 
+                isComplete={trainingProgress === 100}
+                onTrain={handleStartTraining}
+              />
+              
+              <Card className="bg-slate-800 border-slate-700">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Bot className="h-5 w-5 text-[#6b99d6]" />
+                    Model Configuration
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-sm text-slate-400 mb-1">Selected Model</p>
+                      <div className="flex items-center justify-between bg-slate-900 rounded-md p-2">
+                        <div className="flex items-center gap-2">
+                          <Zap className="h-5 w-5 text-[#6b99d6]" />
+                          <p>GPT-4</p>
+                        </div>
+                        <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
+                          Active
+                        </Badge>
                       </div>
-                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-                        Active
-                      </Badge>
+                    </div>
+                    
+                    <div>
+                      <p className="text-sm text-slate-400 mb-1">Memory</p>
+                      <div className="flex items-center justify-between bg-slate-900 rounded-md p-2">
+                        <p>Context Window</p>
+                        <p className="text-[#6b99d6]">8,000 tokens</p>
+                      </div>
                     </div>
                   </div>
                   
-                  <div>
-                    <p className="text-sm text-gray-400 mb-1">Memory</p>
-                    <div className="flex items-center justify-between bg-gray-800/50 rounded-md p-2">
-                      <p>Context Window</p>
-                      <p className="text-[#6b99d6]">8,000 tokens</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <Button 
-                  variant="outline" 
-                  className="w-full mt-4 border-gray-700 hover:bg-gray-800"
-                >
-                  <Settings className="h-4 w-4 mr-2" />
-                  Configure Model Settings
-                </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full mt-4 border-slate-700 bg-slate-800 hover:bg-slate-700"
+                  >
+                    <Settings className="h-4 w-4 mr-2" />
+                    Configure Model Settings
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              <KnowledgeBaseCard 
+                title="Knowledge Base"
+                documents={sampleDocuments}
+                onAddDocument={() => {
+                  toast({
+                    title: "Feature coming soon",
+                    description: "Document upload functionality is under development."
+                  });
+                }}
+              />
+              
+              <PersonasCard 
+                title="Agent Personas"
+                personas={samplePersonas}
+                onAddPersona={() => {
+                  toast({
+                    title: "Feature coming soon",
+                    description: "Persona creation functionality is under development."
+                  });
+                }}
+              />
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="conversations" className="mt-4">
+            <Card className="bg-slate-800 border-slate-700">
+              <CardContent className="p-8 text-center">
+                <MessageSquare className="h-12 w-12 mx-auto mb-4 text-slate-400 opacity-50" />
+                <p className="text-lg mb-2">No conversations yet</p>
+                <p className="text-slate-400">Your agent hasn't had any conversations</p>
               </CardContent>
             </Card>
-            
-            <KnowledgeBaseCard 
-              title="Knowledge Base"
-              documents={sampleDocuments}
-              onAddDocument={() => {
-                toast({
-                  title: "Feature coming soon",
-                  description: "Document upload functionality is under development."
-                });
-              }}
-            />
-            
-            <PersonasCard 
-              title="Agent Personas"
-              personas={samplePersonas}
-              onAddPersona={() => {
-                toast({
-                  title: "Feature coming soon",
-                  description: "Persona creation functionality is under development."
-                });
-              }}
-            />
-          </div>
-        </TabsContent>
-        
-        <TabsContent value="conversations" className="mt-4">
-          <Card className="bg-gray-900/50 border-gray-800">
-            <CardContent className="p-8 text-center">
-              <MessageSquare className="h-12 w-12 mx-auto mb-4 text-gray-400 opacity-50" />
-              <p className="text-lg mb-2">No conversations yet</p>
-              <p className="text-gray-400">Your agent hasn't had any conversations</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        
-        <TabsContent value="users" className="mt-4">
-          <Card className="bg-gray-900/50 border-gray-800">
-            <CardContent className="p-8 text-center">
-              <Users className="h-12 w-12 mx-auto mb-4 text-gray-400 opacity-50" />
-              <p className="text-lg mb-2">No users yet</p>
-              <p className="text-gray-400">Your agent hasn't interacted with any users</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+          </TabsContent>
+          
+          <TabsContent value="users" className="mt-4">
+            <Card className="bg-slate-800 border-slate-700">
+              <CardContent className="p-8 text-center">
+                <Users className="h-12 w-12 mx-auto mb-4 text-slate-400 opacity-50" />
+                <p className="text-lg mb-2">No users yet</p>
+                <p className="text-slate-400">Your agent hasn't interacted with any users</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 }
