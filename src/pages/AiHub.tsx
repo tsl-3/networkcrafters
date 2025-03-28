@@ -12,7 +12,6 @@ import { ResearchTab } from "@/components/ai/tabs/ResearchTab";
 import { ContentCreationTab } from "@/components/ai/tabs/ContentCreationTab";
 import { ContactResearchTab } from "@/components/ai/tabs/ContactResearchTab";
 import { WorkflowTab } from "@/components/ai/tabs/WorkflowTab";
-import { AgentsDashboardTab } from "@/components/ai/tabs/AgentsDashboardTab";
 
 export default function AiHub() {
   const [activeTab, setActiveTab] = useState("lead-generation");
@@ -49,8 +48,7 @@ export default function AiHub() {
                       { value: "research", label: "Research", icon: "Search" },
                       { value: "content", label: "Content Creation", icon: "FileText" },
                       { value: "contact-research", label: "Contact Research", icon: "Users" },
-                      { value: "workflow", label: "Marketing Workflow", icon: "Workflow" },
-                      { value: "agents", label: "Agents", icon: "Bot" }
+                      { value: "workflow", label: "Marketing Workflow", icon: "Workflow" }
                     ].map((item) => (
                       <Button
                         key={item.value}
@@ -92,10 +90,6 @@ export default function AiHub() {
             
             <TabsContent value="workflow">
               <WorkflowTab />
-            </TabsContent>
-
-            <TabsContent value="agents">
-              <AgentsDashboardTab />
             </TabsContent>
           </Tabs>
         </div>

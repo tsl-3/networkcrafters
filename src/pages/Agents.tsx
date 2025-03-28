@@ -5,9 +5,13 @@ import { AiHubHeader } from "@/components/ai/AiHubHeader";
 
 export function Agents() {
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <AiHubHeader />
-      <AgentsDashboardTab />
+    <div className="min-h-screen bg-[#131417] text-white">
+      <div className="container mx-auto py-8 px-4">
+        <div className="space-y-8">
+          <AiHubHeader />
+          <AgentsDashboardTab />
+        </div>
+      </div>
     </div>
   );
 }

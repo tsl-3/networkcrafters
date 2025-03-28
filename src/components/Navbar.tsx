@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from "react-router-dom";
-import { Users, BarChart, Menu, X, Sparkles } from "lucide-react";
+import { Users, BarChart, Menu, X, Sparkles, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -17,6 +17,7 @@ export function Navbar() {
     { path: "/dashboard", label: "Dashboard", icon: <BarChart className="h-4 w-4 mr-1" /> },
     { path: "/contacts", label: "Contacts", icon: <Users className="h-4 w-4 mr-1" /> },
     { path: "/ai", label: "OMNIS", icon: <Sparkles className="h-4 w-4 mr-1" /> },
+    { path: "/agents", label: "Agents", icon: <Bot className="h-4 w-4 mr-1" /> },
   ];
 
   return (
